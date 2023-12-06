@@ -33,6 +33,7 @@ enum layer_names {
 #define KEYPAD TG(_KEYPAD)
 #define QWERTY TG(_QWERTY)
 #define NUMS_GUI LM(_NUMS_DVORAK, MOD_LGUI)
+#define DEL_NUM LT(_KEYPAD, KC_DEL)
 
 const key_override_t key1_override = ko_make_basic(MOD_MASK_SHIFT, KC_PLUS, KC_1);
 const key_override_t key2_override = ko_make_basic(MOD_MASK_SHIFT, KC_LBRC, KC_2);
@@ -45,8 +46,8 @@ const key_override_t key8_override = ko_make_basic(MOD_MASK_SHIFT, KC_RCBR, KC_8
 const key_override_t key9_override = ko_make_basic(MOD_MASK_SHIFT, KC_RBRC, KC_9);
 const key_override_t key0_override = ko_make_basic(MOD_MASK_SHIFT, KC_ASTR, KC_0);
 
-const key_override_t pipe_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_PIPE, KC_GRV);
-const key_override_t dollar_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_DLR, KC_TILD);
+const key_override_t pipe_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_PIPE, KC_PIPE);
+const key_override_t dollar_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_DLR, KC_DLR);
 const key_override_t backslash_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_BSLS, KC_HASH);
 const key_override_t at_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_AT, KC_CIRC);
 const key_override_t exlm_key_override = ko_make_basic(MOD_MASK_SHIFT, KC_EXLM, KC_PERC);
@@ -81,11 +82,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
            MEH_TAB, KC_SCLN, KC_COMM, KC_DOT,  KC_P,    KC_Y,           KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    KC_BSLS,
            HYP_ESC, KC_A,    KC_O,    KC_E,    KC_U,    KC_I,           KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    KC_MINS,
            KC_LSFT, KC_QUOT, KC_Q,    KC_J,    KC_K,    KC_X,           KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,    KC_RSFT,
-                    KC_DLR,  KEYPAD, KC_LEFT, KC_RGHT,                  KC_UP,   KC_DOWN, KC_SLSH, KC_AT,
+                    KC_GRV,  KC_DLR,  KC_LEFT, KC_RGHT,                  KC_UP,   KC_DOWN, KC_SLSH, KC_AT,
 
                     KC_LCTL, NUMS_GUI,          KC_RALT, KC_RCTL,
                              MACPAST,           KC_HOME,
-           KC_BSPC, KC_DEL,  MACCOPY,           KC_END,  KC_ENT, KC_SPC
+           KC_BSPC, DEL_NUM, MACCOPY,           KC_END,  KC_ENT, KC_SPC
     ),
 
 
