@@ -24,12 +24,10 @@ enum layer_names {
     _QWERTY,
 };
 
-// Mac-specific macros
-#define MACCOPY LGUI(KC_C)
-#define MACPAST LGUI(KC_V)
+// Linux M$ -specific macros
+#define COPY LCTL(KC_C)
+#define PAST LCTL(KC_V)
 
-#define HYP_ESC LT(_BASE_DVORAK, KC_ESC)
-#define MEH_TAB MEH_T(KC_TAB)
 #define KEYPAD TG(_KEYPAD)
 #define QWERTY TG(_QWERTY)
 #define NUMS_GUI LM(_NUMS_DVORAK, MOD_LGUI)
@@ -79,14 +77,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_BASE_DVORAK] = LAYOUT (
            KC_ESC,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,           KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_PSCR, KC_SCRL, KC_PAUS, QWERTY,  QK_BOOT,
            KC_PIPE, KC_PLUS, KC_LBRC, KC_LCBR, KC_LPRN, KC_AMPR,           KC_EQL,  KC_RPRN, KC_RCBR, KC_RBRC, KC_ASTR, KC_EXLM,
-           MEH_TAB, KC_SCLN, KC_COMM, KC_DOT,  KC_P,    KC_Y,           KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    KC_BSLS,
-           HYP_ESC, KC_A,    KC_O,    KC_E,    KC_U,    KC_I,           KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    KC_MINS,
+           KC_TAB,  KC_SCLN, KC_COMM, KC_DOT,  KC_P,    KC_Y,           KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    KC_BSLS,
+           KC_ESC,  KC_A,    KC_O,    KC_E,    KC_U,    KC_I,           KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    KC_MINS,
            KC_LSFT, KC_QUOT, KC_Q,    KC_J,    KC_K,    KC_X,           KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,    KC_RSFT,
                     KC_GRV,  KC_DLR,  KC_LEFT, KC_RGHT,                  KC_UP,   KC_DOWN, KC_SLSH, KC_AT,
 
                     KC_LCTL, NUMS_GUI,          KC_RALT, KC_RCTL,
-                             MACPAST,           KC_HOME,
-           KC_BSPC, DEL_NUM, MACCOPY,           KC_END,  KC_ENT, KC_SPC
+                             PAST,              KC_HOME,
+           KC_BSPC, DEL_NUM, COPY,              KC_END,  KC_ENT, KC_SPC
     ),
 
 
@@ -154,25 +152,6 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 bool led_update_user(led_t led_state) {
     // Disable led_update_kb() so that layer indication code doesn't get overridden.
     return false;
-}
-
-// Used for Hyper key with layer switch on hold and Escape on tap
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        case HYP_ESC:
-            if (record->tap.count && record->event.pressed) {
-               break;
-            } else if (record->event.pressed) {
-                register_mods(MOD_HYPR);
-                layer_on(_NUMS_DVORAK);
-                return false;
-            } else {
-                layer_off(_NUMS_DVORAK);
-                unregister_mods(MOD_HYPR);
-                break;
-            }
-    }
-    return true;
 }
 
 // Caps Word tweaks so it can also be for entering numbers without holding shift down
